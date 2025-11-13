@@ -145,4 +145,16 @@
         app:layout_constraintStart_toEndOf="@+id/button_main_dS"
         app:layout_constraintTop_toBottomOf="@+id/button_main_f"
         app:layout_constraintVertical_bias="0.5" />
+
+    <Button
+        android:id="@+id/button_main_play_song"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/play_song"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_main_cS"
+        app:layout_constraintVertical_bias="0.5" />
 </androidx.constraintlayout.widget.ConstraintLayout>

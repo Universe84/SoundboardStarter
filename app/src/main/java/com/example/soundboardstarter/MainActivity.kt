@@ -13,6 +13,11 @@ import com.example.soundboardstarter.databinding.ActivityMainBinding
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class MainActivity : AppCompatActivity() {
@@ -35,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     var fSNote = 0
     var gNote = 0
     var gSNote = 0
+
     val songString = "A 500 A 500 B 500 A 500 A 500 A 500"
     val noteMap = HashMap<String, Int>()
 
@@ -65,29 +71,45 @@ class MainActivity : AppCompatActivity() {
 
     private fun stringConvert(song : String){
         val songShorten = song.split(" ")
+        val listOfNotes = arrayListOf<Note>()
+        for(i in songShorten.indices - 1 step 2){
 
-        for(apple in songShorten){
-            song.
+            listOfNotes.add(Note(songShorten[i + 1].toInt(), songShorten[i]))
         }
 
 
     }
 
     private fun playSong(song: List<Note>){
-        for(note in song){
 
-        }
     }
 
-    private fun delay(time: Long){
-        try {
-            Thread.sleep(time)
+    private suspend fun playSimpleSong() {
+        withContext(Dispatchers.Main) {
+            binding.buttonMainA.text = "hi"
         }
-        catch(e: InterruptedException){
-            e.printStackTrace()
+        playNote(aNote)
+        delay(500)
+        playNote(bNote)
+        playNote(aNote)
+        delay(500)
+        playNote(bNote)
+        playNote(aNote)
+        delay(500)
+        playNote(bNote)
+        playNote(aNote)
+        delay(500)
+        playNote(bNote)
+        playNote(aNote)
+        delay(500)
+        playNote(bNote)
+        playNote(aNote)
+        delay(500)
+        playNote(bNote)
+        withContext(Dispatchers.Main) {
+            binding.buttonMainA.text = "A"
         }
     }
-
 
         private fun initializeSoundPool() {
 
@@ -109,7 +131,7 @@ class MainActivity : AppCompatActivity() {
             gNote = soundPool.load(this, R.raw.scaleg, 1)
             gSNote = soundPool.load(this, R.raw.scalegs, 1)
 
-            noteMap.put("A", aNote)
+            noteMap["A"] = aNote
             noteMap["Bb"] = bbNote
             noteMap["B"] = bNote
             noteMap["C"] = cNote
@@ -144,6 +166,13 @@ class MainActivity : AppCompatActivity() {
             binding.buttonMainFS.setOnClickListener(soundBoardListener)
             binding.buttonMainG.setOnClickListener(soundBoardListener)
             binding.buttonMainGS.setOnClickListener(soundBoardListener)
+            binding.buttonMainPlaySong.setOnClickListener {
+                CoroutineScope(Dispatchers.IO).launch {
+                    playSimpleSong()
+                }
+            }
+
+
         }
 
 
