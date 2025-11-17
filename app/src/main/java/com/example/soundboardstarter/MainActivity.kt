@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
     var gNote = 0
     var gSNote = 0
 
-    val songString = "CS 1000 C 500 A 500 GS 500 A 500 C 500 CS 500"
+    val songString = "A 500 A 0 E 500 A 0 E 250 D 250 C 250 G 500 C 0 E 500 C 0 E 250 D 250 C 250 A 500 A 0 E 500 E 250 D 250 C 250 C 0 G 500"
     val noteMap = HashMap<String, Int>()
 
     private lateinit var binding: ActivityMainBinding
