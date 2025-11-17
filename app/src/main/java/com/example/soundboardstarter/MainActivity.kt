@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
     var gNote = 0
     var gSNote = 0
 
-    val songString = "A 500 A 500 B 500 A 500 A 500 A 500"
+    val songString = "CS 1000 C 500 A 500 GS 500 A 500 C 500 CS 500"
     val noteMap = HashMap<String, Int>()
 
     private lateinit var binding: ActivityMainBinding
@@ -69,19 +69,20 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun stringConvert(song : String){
+    private fun stringConvert(song : String): ArrayList<Note> {
         val songShorten = song.split(" ")
         val listOfNotes = arrayListOf<Note>()
-        for(i in songShorten.indices - 1 step 2){
-
-            listOfNotes.add(Note(songShorten[i + 1].toInt(), songShorten[i]))
+        for(i in songShorten.indices step 2){
+            listOfNotes.add(Note(songShorten[i + 1].toLong(), songShorten[i]))
         }
-
-
+        return listOfNotes
     }
 
-    private fun playSong(song: List<Note>){
-
+    private suspend fun playSong(song: List<Note>){
+        for(i in song){
+            playNote(i.note)
+            delay(i.duration)
+        }
     }
 
     private suspend fun playSimpleSong() {
@@ -168,7 +169,7 @@ class MainActivity : AppCompatActivity() {
             binding.buttonMainGS.setOnClickListener(soundBoardListener)
             binding.buttonMainPlaySong.setOnClickListener {
                 CoroutineScope(Dispatchers.IO).launch {
-                    playSimpleSong()
+                    playSong(stringConvert(songString))
                 }
             }
 

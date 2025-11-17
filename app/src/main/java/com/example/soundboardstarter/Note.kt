@@ -1,3 +1,3 @@
 package com.example.soundboardstarter
 
-data class Note(val duration : Int, val note : String)
+data class Note(val duration : Long, val note : String)
